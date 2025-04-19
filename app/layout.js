@@ -1,13 +1,20 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Roboto_Mono } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import SessionWrapper from "@/components/SessionWrapper";
+// import Navbar from "./components/Navbar";
+// import Footer from "./components/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Load Inter as a sans-serif replacement for Geist
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+// Load Roboto Mono as a mono replacement for Geist_Mono
+const robotoMono = Roboto_Mono({
+  variable: "--font-roboto-mono",
   subsets: ["latin"],
 });
 
@@ -19,10 +26,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className=" bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] text-white">
+     <SessionWrapper>
+      <Navbar/>
+        <div className="min-h-[87vh] bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] text-white">    
         {children}
+        </div>
+        <Footer/>
+     </SessionWrapper>
       </body>
     </html>
   );
