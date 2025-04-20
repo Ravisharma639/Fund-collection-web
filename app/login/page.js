@@ -16,9 +16,11 @@ const Login = () => {
 
             <div className='social-login-button'>
                 <div className="flex flex-col gap-2 min-h-screen  items-center p-10">
+                    
 
-                    <button className="flex items-center w-64 bg-slate-50 text-black border border-gray-300 rounded-lg shadow-md max-w-xs px-6 py-2 text-sm font-medium  hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-                        <svg className="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 0 48 48" version="1.1">
+                    <button onClick={() => signIn("google")} className="flex items-center w-64 bg-slate-50 text-black border border-gray-300 rounded-lg shadow-md max-w-xs px-6 py-2 text-sm font-medium hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+    <svg className="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 0 48 48" version="1.1">
+    <svg className="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 0 48 48" version="1.1">
                             <g fill="none" fillRule="evenodd">
                                 <g transform="translate(-401.000000, -860.000000)">
                                     <g transform="translate(401.000000, 860.000000)">
@@ -30,8 +32,10 @@ const Login = () => {
                                 </g>
                             </g>
                         </svg>
-                        <span>Continue with Google</span>
-                    </button>
+    </svg>
+    <span>Continue with Google</span>
+</button>
+
 
                     <button
                         className="flex items-center w-64 bg-slate-50 text-black border border-gray-300 rounded-lg shadow-md max-w-xs px-6 py-2 text-sm font-medium  hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"

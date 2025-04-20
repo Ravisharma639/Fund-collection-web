@@ -1,38 +1,41 @@
 import NextAuth from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
 import User from "@/models/User";
 import connectDB from "@/db/connectDb";
 
-export const authoptions = NextAuth({
+export const authOptions = {
   providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
     GitHubProvider({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
+
   callbacks: {
     async signIn({ user, account }) {
-      if (account.provider === "github") {
-        await connectDB();
+      await connectDB();
 
-        if (!user.email) {
-          console.error("GitHub account does not provide an email.");
-          return false;
-        }
-
-        let existingUser = await User.findOne({ email: user.email });
-
-        // Create user if not found
-        if (!existingUser) {
-          existingUser = await User.create({
-            email: user.email,
-            username: user.email.split("@")[0],
-          });
-        }
-
-        return true;
+      if (!user.email) {
+        console.error("User email not available");
+        return false;
       }
-      return false;
+
+      let existingUser = await User.findOne({ email: user.email });
+
+      if (!existingUser) {
+        existingUser = await User.create({
+          email: user.email,
+          username: user.email.split("@")[0],
+        });
+      }
+
+      return true;
     },
 
     async session({ session }) {
@@ -43,7 +46,6 @@ export const authoptions = NextAuth({
       if (dbUser) {
         session.user.name = dbUser.username;
 
-        // ✅ Include razorpay secret if available
         if (dbUser.razorpaysecret) {
           session.user.razorpaysecret = dbUser.razorpaysecret;
         }
@@ -52,6 +54,7 @@ export const authoptions = NextAuth({
       return session;
     },
   },
-});
+};
 
-export { authoptions as GET, authoptions as POST };
+const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST };
