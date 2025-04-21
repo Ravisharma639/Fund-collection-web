@@ -62,9 +62,7 @@ const Dashboard = () => {
           { name: "email", label: "Email", type: "email", placeholder: "Enter your email" },
           { name: "username", label: "Username", type: "text", placeholder: "Choose a username" },
           { name: "profilepic", label: "Profile Picture URL", type: "text", placeholder: "Paste image URL" },
-          { name: "coverpic", label: "Cover Picture URL", type: "text", placeholder: "Paste cover image URL" },
-          { name: "razorpayId", label: "Razorpay ID", type: "text", placeholder: "Enter Razorpay ID" },
-          { name: "razorpaySecret", label: "Razorpay Secret", type: "password", placeholder: "Enter Razorpay Secret" }
+
         ].map(({ name, label, type, placeholder }) => (
           <div key={name}>
             <label htmlFor={name} className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
