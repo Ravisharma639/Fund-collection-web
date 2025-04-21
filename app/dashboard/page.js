@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 const Dashboard = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
+
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -42,6 +43,9 @@ const Dashboard = () => {
       console.log("Form submitted:", form);
       // await updateProfile(form, session.user.username);
       alert("Profile updated successfully!");
+
+      // ✅ Redirect to PaymentPage
+      router.push('/PaymentPage');
     } catch (err) {
       console.error("Update failed:", err);
       alert("Profile update failed.");
