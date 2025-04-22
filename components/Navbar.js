@@ -59,6 +59,14 @@ const Navbar = () => {
                         </Link>
                       </li>
                       <li>
+                        <Link href="/contact">
+                          <button className="block px-4 py-2 hover:bg-gray-700">
+                            Contact
+                          </button>
+                        </Link>
+
+                      </li>
+                      <li>
                         <button
                           onClick={() => signOut()}
                           className="block w-full text-left px-4 py-2 hover:bg-gray-700"

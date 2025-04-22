@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Script from "next/script";
 import { useSession } from "next-auth/react";
-import { fetchuser, fetchpayments, initiate } from "@actions/useractions";
+import { fetchuser, fetchpayments, initiate } from "../actions/useractions";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -89,10 +89,10 @@ const PaymentPage = ({ username: propUsername }) => {
   return (
     <>
       <Script src="https://checkout.razorpay.com/v1/checkout.js" />
-      
+
       {/* Toast Notification */}
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick pauseOnHover draggable theme="light" />
-      
+
       <div className="cover w-full bg-red-50 relative">
         <img className="object-cover w-full h-[350px]" src="header img.png" alt="Header Image" />
         <div className="absolute transform -translate-y-12 button-20 right-[46%] border-white border-2 rounded-full">
@@ -103,9 +103,9 @@ const PaymentPage = ({ username: propUsername }) => {
       <div className="info flex justify-center items-center my-20 flex-col gap-2">
         <div className="font-bold text-lg">@{username}</div>
         <div className="text-slate-400">Lets help {username} FutureBridge</div>
-        <div className="text-slate-400">{payments.length} payments. ₹{payments.reduce((a,b) => a+b.amount, 0)} has raising fund for poor child !</div>
+        <div className="text-slate-400">{payments.length} payments. ₹{payments.reduce((a, b) => a + b.amount, 0)} has raising fund for poor child !</div>
 
-        
+
         <div className="flex flex-col md:flex-row gap-6 w-full max-w-5xl mt-10">
           {/* Supporters */}
           <div className="md:w-1/2 w-full bg-slate-900 text-white p-6 rounded-lg">
@@ -158,6 +158,8 @@ const PaymentPage = ({ username: propUsername }) => {
               >
                 Pay
               </button>
+              
+
             </div>
 
             <div className="flex flex-wrap gap-2 mt-4 justify-start">

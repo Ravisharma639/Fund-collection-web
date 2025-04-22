@@ -5,6 +5,60 @@ import Payment from "@/models/Payment";
 import connectDB from "@/db/connectDb";
 import User from "@/models/User";
 
+// ✅ Fetch user by username with error handling
+export const fetchuser = async (username) => {
+    try {
+        await connectDB();
+
+        if (!username) throw new Error("Username is undefined");
+
+        const user = await User.findOne({ username });
+
+        if (!user) {
+            throw new Error(`User not found: ${username}`);
+        }
+
+        return user.toObject();
+    } catch (error) {
+        console.error("Error fetching user:", error);
+        throw new Error("Failed to fetch user");
+    }
+};
+
+// ✅ Update user profile and related payments
+export const updateProfile = async (data, oldusername) => {
+    try {
+        await connectDB();
+
+        const updatedData = Object.fromEntries(data);
+
+        if (!updatedData.email) {
+            return { error: "Email is required to update profile" };
+        }
+
+        // Handle username change
+        if (oldusername !== updatedData.username) {
+            const existing = await User.findOne({ username: updatedData.username });
+            if (existing) {
+                return { error: "Username already exists" };
+            }
+
+            // Update user info
+            await User.updateOne({ email: updatedData.email }, updatedData);
+
+            // Update all associated payments
+            await Payment.updateMany({ to_user: oldusername }, { to_user: updatedData.username });
+        } else {
+            // No username change
+            await User.updateOne({ email: updatedData.email }, updatedData);
+        }
+
+        return { success: true };
+    } catch (error) {
+        console.error("Error updating profile:", error);
+        return { error: "Failed to update profile" };
+    }
+};
 
 // ✅ Initiate a payment and save order in DB
 export const initiate = async (amount, to_username, Paymentform) => {
@@ -25,7 +79,7 @@ export const initiate = async (amount, to_username, Paymentform) => {
 
         await Payment.create({
             oid: order.id,
-            amount: amount , // Store in rupees
+            amount: amount, // Store in rupees
             to_user: to_username,
             name: Paymentform?.name || "Anonymous",
             message: Paymentform?.message || ""
@@ -35,26 +89,6 @@ export const initiate = async (amount, to_username, Paymentform) => {
     } catch (error) {
         console.error("Error initiating payment:", error);
         throw new Error("Payment initiation failed");
-    }
-};
-
-// ✅ Fetch a user by username with error handling
-export const fetchuser = async (username) => {
-    try {
-        await connectDB();
-
-        if (!username) throw new Error("Username is undefined");
-
-        const u = await User.findOne({ username });
-
-        if (!u) {
-            throw new Error(`User not found: ${username}`);
-        }
-
-        return u.toObject();
-    } catch (error) {
-        console.error("Error fetching user:", error);
-        throw new Error("Failed to fetch user");
     }
 };
 
@@ -71,41 +105,6 @@ export const fetchpayments = async (username) => {
     } catch (error) {
         console.error("Error fetching payments:", error);
         throw new Error("Failed to fetch payments");
-    }
-};
-
-// ✅ Update user profile & related payments
-export const updateProfile = async (data, oldusername) => {
-    try {
-        await connectDB();
-
-        const ndata = Object.fromEntries(data);
-
-        if (!ndata.email) {
-            return { error: "Email is required to update profile" };
-        }
-
-        // Handle username change
-        if (oldusername !== ndata.username) {
-            const existing = await User.findOne({ username: ndata.username });
-            if (existing) {
-                return { error: "Username already exists" };
-            }
-
-            // Update user info
-            await User.updateOne({ email: ndata.email }, ndata);
-
-            // Update all associated payments
-            await Payment.updateMany({ to_user: oldusername }, { to_user: ndata.username });
-        } else {
-            // No username change
-            await User.updateOne({ email: ndata.email }, ndata);
-        }
-
-        return { success: true };
-    } catch (error) {
-        console.error("Error updating profile:", error);
-        return { error: "Failed to update profile" };
     }
 };
 
