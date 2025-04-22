@@ -103,7 +103,7 @@ const PaymentPage = ({ username: propUsername }) => {
       <div className="info flex justify-center items-center my-20 flex-col gap-2">
         <div className="font-bold text-lg">@{username}</div>
         <div className="text-slate-400">Lets help {username} FutureBridge</div>
-        <div className="text-slate-400">{payments.length} payments. ₹{payments.reduce((a, b) => a + b.amount, 0)} has raising fund for poor child !</div>
+        <div className="text-slate-400">{payments.length} payments. ₹{payments.reduce((a, b) => a + b.amount, 0)} has raising fund for Poor child !</div>
 
 
         <div className="flex flex-col md:flex-row gap-6 w-full max-w-5xl mt-10">
@@ -157,6 +157,14 @@ const PaymentPage = ({ username: propUsername }) => {
                 className="w-full bg-purple-700 hover:bg-purple-800 text-white py-2 rounded-lg"
               >
                 Pay
+              </button>
+              <button
+                onClick={() => {
+                  window.location.href = "http://razorpay.me/@ravisharma535";
+                }}
+                className="w-full bg-green-700 hover:bg-green-700 text-white py-2 rounded-lg"
+              >
+                Real
               </button>
               
 
