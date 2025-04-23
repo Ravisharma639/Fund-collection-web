@@ -94,16 +94,16 @@ const PaymentPage = ({ username: propUsername }) => {
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick pauseOnHover draggable theme="light" />
 
       <div className="cover w-full bg-red-50 relative">
-        <img className="object-cover w-full h-[350px]" src="header img.png" alt="Header Image" />
+        <img className="object-cover w-full h-[350px]" src={currentUser.coverpic} alt="Header Image" />
         <div className="absolute transform -translate-y-12 button-20 right-[46%] border-white border-2 rounded-full">
-          <img className="rounded-full" width={100} height={100} src="anime for symbol.webp" alt="Anime Symbol" />
+          <img className="rounded-full" width={100} height={100} src={currentUser.profilepic} alt="Anime Symbol" />
         </div>
       </div>
 
       <div className="info flex justify-center items-center my-20 flex-col gap-2">
         <div className="font-bold text-lg">@{username}</div>
         <div className="text-slate-400">Lets help {username} FutureBridge</div>
-        <div className="text-slate-400">{payments.length} payments. ₹{payments.reduce((a, b) => a + b.amount, 0)} has raising fund for Poor child !</div>
+        <div className="text-slate-400">{payments.length} payments. ₹{payments.reduce((a, b) => a + b.amount, 0)} has raising fund for FutureBridge!</div>
 
 
         <div className="flex flex-col md:flex-row gap-6 w-full max-w-5xl mt-10">
