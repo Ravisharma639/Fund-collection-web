@@ -164,7 +164,7 @@ const PaymentPage = ({ username: propUsername }) => {
                 }}
                 className="w-full bg-green-700 hover:bg-green-700 text-white py-2 rounded-lg"
               >
-                Real
+                Real Pay
               </button>
               
 
