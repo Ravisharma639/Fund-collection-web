@@ -1,4 +1,4 @@
-import { connectDB } from "@/db/db";
+import connectDB from '../../../db/db';
 import User from "@/models/User";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
