@@ -74,7 +74,7 @@ const Navbar = () => {
                 onClick={() => signOut()}
                 className="bg-purple-700 hover:bg-purple-800 text-sm px-5 py-2.5 rounded-lg font-medium"
               >
-                Logout
+                Log out
               </button>
             </>
           ) : (
